@@ -1,29 +1,40 @@
-// UC3: Palindrome Check Using String Reverse
+// UC4: Character Array Based Palindrome Check
 
-public class PalindromeCheckerApp {
+public class  PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        // Original string
-        String original = "level";
+        // Hardcoded string
+        String word = "madam";
 
-        // Variable to store reversed string
-        String reversed = "";
+        // Convert String to char array
+        char[] charArray = word.toCharArray();
 
-        // Reverse string using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);   // String Concatenation
+        // Initialize two pointers
+        int start = 0;
+        int end = charArray.length - 1;
+
+        boolean isPalindrome = true;
+
+        // Two-pointer comparison
+        while (start < end) {
+
+            if (charArray[start] != charArray[end]) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
         }
-        if (original.equals(reversed)) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
+
+        // Display result
+        if (isPalindrome) {
+            System.out.println("The string \"" + word + "\" is a Palindrome.");
         } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("The string \"" + word + "\" is NOT a Palindrome.");
         }
 
-    }
-}
-public class PalindromeCheckerApp {
-    public static void main(String[] args){
-        System.out.println("Welcome to palindrome checker app Management System");
+        // Program exits
     }
 }
