@@ -1,23 +1,27 @@
+// UC3: Palindrome Check Using String Reverse
+
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
+        // Original string
+        String original = "level";
 
-        String word = "madam";
+        // Variable to store reversed string
+        String reversed = "";
 
-
-        String reversedWord = "";
-
-
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversedWord = reversedWord + word.charAt(i);
+        // Reverse string using for loop
+        for (int i = original.length() - 1; i >= 0; i--) {
+            reversed = reversed + original.charAt(i);   // String Concatenation
         }
 
-        if (word.equals(reversedWord)) {
-            System.out.println("The word \"" + word + "\" is a Palindrome.");
+        // Compare original and reversed string using equals()
+        if (original.equals(reversed)) {
+            System.out.println("The string \"" + original + "\" is a Palindrome.");
         } else {
-            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
         }
 
+        // Program ends
     }
 }
