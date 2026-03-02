@@ -1,5 +1,4 @@
-// UC8: Linked List Based Palindrome Checker
-
+ 
 public class PalindromeCheckerApp {
 
     // Node class for Singly Linked List
