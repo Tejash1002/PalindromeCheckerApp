@@ -1,5 +1,16 @@
 import java.util.*;
 
+interface PalindromeStrategy {
+    boolean isValid(String input);
+}
+
+
+class StackStrategy implements PalindromeStrategy {
+    @Override
+    public boolean isValid(String input) {
+        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        Stack<Character> stack = new Stack<>();
+        for (char c : clean.toCharArray()) stack.push(c);
 public class  PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -8,9 +19,14 @@ public class  PalindromeCheckerApp {
         System.out.print("Enter a long string to benchmark: ");
         String input = scanner.nextLine();
 
+class DequeStrategy implements PalindromeStrategy {
+    @Override
+    public boolean isValid(String input) {
  
         String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
+class PalindromeContext {
+    private PalindromeStrategy strategy;
  
         String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
  
@@ -43,6 +59,12 @@ public class  PalindromeCheckerApp {
     }
 
  
+        if (choice == 1) {
+            context.setStrategy(new StackStrategy());
+            System.out.println("Using: Stack Strategy");
+        } else {
+            context.setStrategy(new DequeStrategy());
+            System.out.println("Using: Deque Strategy");
     public static boolean checkTwoPointer(String s) {
         int i = 0, j = s.length() - 1;
         while (i < j) {
