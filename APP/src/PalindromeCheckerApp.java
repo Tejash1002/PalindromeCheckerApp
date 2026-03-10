@@ -1,15 +1,10 @@
 import java.util.*;
 
-/**
- * Step 1: Define the Strategy Interface
- */
 interface PalindromeStrategy {
     boolean isValid(String input);
 }
 
-/**
- * Step 2: Implement Strategy using a Stack (LIFO)
- */
+
 class StackStrategy implements PalindromeStrategy {
     @Override
     public boolean isValid(String input) {
@@ -24,9 +19,6 @@ class StackStrategy implements PalindromeStrategy {
     }
 }
 
-/**
- * Step 3: Implement Strategy using a Deque (Double-Ended Queue)
- */
 class DequeStrategy implements PalindromeStrategy {
     @Override
     public boolean isValid(String input) {
@@ -41,9 +33,6 @@ class DequeStrategy implements PalindromeStrategy {
     }
 }
 
-/**
- * Step 4: The Context Class that uses the Strategy
- */
 class PalindromeContext {
     private PalindromeStrategy strategy;
 
@@ -69,7 +58,7 @@ public class PalindromeCheckerApp {
         System.out.println("Choose Algorithm: 1 for Stack, 2 for Deque");
         int choice = scanner.nextInt();
 
-        // Injecting the strategy at runtime (Polymorphism)
+ 
         if (choice == 1) {
             context.setStrategy(new StackStrategy());
             System.out.println("Using: Stack Strategy");
