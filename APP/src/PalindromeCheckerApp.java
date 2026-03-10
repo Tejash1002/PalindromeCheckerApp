@@ -1,97 +1,45 @@
 import java.util.Scanner;
 
-class Node {
-    char data;
-    Node next;
+public class  PalindromeCheckerApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
+        System.out.println("--- Palindrome Checker (Case & Space Insensitive) ---");
+        System.out.print("Enter a string: ");
+        String originalInput = scanner.nextLine();
 
-class LinkedListPalindrome {
+        // Step 1: Normalize the string
+        // We use regex [^a-zA-Z0-9] to remove everything except alphanumeric characters
+        String normalizedString = originalInput.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-    Node head;
+        // Step 2: Apply Palindrome Logic (Two-Pointer Technique)
+        boolean isPalindrome = checkPalindrome(normalizedString);
 
-    // Convert string to linked list
-    public void createList(String str) {
-        for (char c : str.toCharArray()) {
-            Node newNode = new Node(c);
-            if (head == null) {
-                head = newNode;
-            } else {
-                Node temp = head;
-                while (temp.next != null) {
-                    temp = temp.next;
-                }
-                temp.next = newNode;
-            }
-        }
-    }
-
-    // Reverse linked list
-    public Node reverse(Node head) {
-        Node prev = null;
-        Node curr = head;
-        Node next = null;
-
-        while (curr != null) {
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        return prev;
-    }
-
-    // Check palindrome using linked list
-    public boolean isPalindrome() {
-        if (head == null || head.next == null)
-            return true;
-
-        Node slow = head;
-        Node fast = head;
-
-        // Find middle using fast & slow pointer
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        // Output results
+        System.out.println("\nNormalized String: " + normalizedString);
+        if (isPalindrome) {
+            System.out.println("Result: Success! \"" + originalInput + "\" is a palindrome.");
+        } else {
+            System.out.println("Result: Failed. \"" + originalInput + "\" is NOT a palindrome.");
         }
 
-        // Reverse second half
-        Node secondHalf = reverse(slow);
-        Node firstHalf = head;
+        scanner.close();
+    }
 
-        // Compare both halves
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
+    /**
+     * Logic to check if a string reads the same forwards and backwards
+     */
+    public static boolean checkPalindrome(String str) {
+        int left = 0;
+        int right = str.length() - 1;
+
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
                 return false;
             }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
+            left++;
+            right--;
         }
-
         return true;
-    }
-}
-
-public class PalindromeCheckerApp {
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a string: ");
-        String input = sc.nextLine();
-
-        LinkedListPalindrome list = new LinkedListPalindrome();
-        list.createList(input);
-
-        if (list.isPalindrome()) {
-            System.out.println("The string is a Palindrome.");
-        } else {
-            System.out.println("The string is NOT a Palindrome.");
-        }
-
-        sc.close();
     }
 }
