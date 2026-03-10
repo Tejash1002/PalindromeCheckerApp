@@ -12,6 +12,8 @@ public class  PalindromeCheckerApp {
         String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
  
+        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+ 
         long startTime = System.nanoTime();
         boolean res1 = checkTwoPointer(clean);
         long endTime = System.nanoTime();
@@ -23,6 +25,7 @@ public class  PalindromeCheckerApp {
         endTime = System.nanoTime();
         long durationStack = endTime - startTime;
  
+
         startTime = System.nanoTime();
         boolean res3 = checkReversal(clean);
         endTime = System.nanoTime();
