@@ -1,70 +1,69 @@
-// UC8: Linked List Based Palindrome Checker
+import java.util.Scanner;
 
-public class PalindromeCheckerApp {
+class Node {
+    char data;
+    Node next;
 
-    // Node class for Singly Linked List
-    static class Node {
-        char data;
-        Node next;
-
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
+    Node(char data) {
+        this.data = data;
+        this.next = null;
     }
+}
 
-    public static void main(String[] args) {
+class LinkedListPalindrome {
 
-        // Hardcoded string
-        String word = "level";
+    Node head;
 
-        // Convert string to singly linked list
-        Node head = null;
-        Node tail = null;
-
-        for (int i = 0; i < word.length(); i++) {
-            Node newNode = new Node(word.charAt(i));
+    // Convert string to linked list
+    public void createList(String str) {
+        for (char c : str.toCharArray()) {
+            Node newNode = new Node(c);
             if (head == null) {
                 head = newNode;
-                tail = newNode;
             } else {
-                tail.next = newNode;
-                tail = newNode;
+                Node temp = head;
+                while (temp.next != null) {
+                    temp = temp.next;
+                }
+                temp.next = newNode;
             }
-        }
-
-        // Check if palindrome
-        boolean isPalindrome = checkPalindrome(head);
-
-        // Print result
-        if (isPalindrome) {
-            System.out.println("The string \"" + word + "\" is a Palindrome.");
-        } else {
-            System.out.println("The string \"" + word + "\" is NOT a Palindrome.");
         }
     }
 
-    // Method to check palindrome using fast & slow pointer
-    public static boolean checkPalindrome(Node head) {
+    // Reverse linked list
+    public Node reverse(Node head) {
+        Node prev = null;
+        Node curr = head;
+        Node next = null;
 
-        if (head == null || head.next == null) {
-            return true;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
+        return prev;
+    }
+
+    // Check palindrome using linked list
+    public boolean isPalindrome() {
+        if (head == null || head.next == null)
+            return true;
 
         Node slow = head;
         Node fast = head;
 
-        // Find middle using fast and slow pointers
+        // Find middle using fast & slow pointer
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
         // Reverse second half
-        Node secondHalf = reverseList(slow);
+        Node secondHalf = reverse(slow);
         Node firstHalf = head;
 
-        // Compare halves
+        // Compare both halves
         while (secondHalf != null) {
             if (firstHalf.data != secondHalf.data) {
                 return false;
@@ -75,20 +74,24 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+}
 
-    // In-place reversal of linked list
-    public static Node reverseList(Node head) {
-        Node prev = null;
-        Node current = head;
-        Node next = null;
+public class PalindromeCheckerApp {
+    public static void main(String[] args) {
 
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        LinkedListPalindrome list = new LinkedListPalindrome();
+        list.createList(input);
+
+        if (list.isPalindrome()) {
+            System.out.println("The string is a Palindrome.");
+        } else {
+            System.out.println("The string is NOT a Palindrome.");
         }
 
-        return prev;
+        sc.close();
     }
 }
