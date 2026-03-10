@@ -11,52 +11,52 @@ class StackStrategy implements PalindromeStrategy {
         String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
         Stack<Character> stack = new Stack<>();
         for (char c : clean.toCharArray()) stack.push(c);
+public class  PalindromeCheckerApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        for (char c : clean.toCharArray()) {
-            if (c != stack.pop()) return false;
-        }
-        return true;
-    }
-}
+        System.out.println("=== UC13: Performance Comparison (Algorithm Benchmark) ===");
+        System.out.print("Enter a long string to benchmark: ");
+        String input = scanner.nextLine();
 
 class DequeStrategy implements PalindromeStrategy {
     @Override
     public boolean isValid(String input) {
+ 
         String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-        Deque<Character> deque = new LinkedList<>();
-        for (char c : clean.toCharArray()) deque.addLast(c);
-
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) return false;
-        }
-        return true;
-    }
-}
 
 class PalindromeContext {
     private PalindromeStrategy strategy;
+ 
+        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+ 
+        long startTime = System.nanoTime();
+        boolean res1 = checkTwoPointer(clean);
+        long endTime = System.nanoTime();
+        long durationTwoPointer = endTime - startTime;
 
-    public void setStrategy(PalindromeStrategy strategy) {
-        this.strategy = strategy;
+ 
+        startTime = System.nanoTime();
+        boolean res2 = checkStack(clean);
+        endTime = System.nanoTime();
+        long durationStack = endTime - startTime;
+ 
+
+        startTime = System.nanoTime();
+        boolean res3 = checkReversal(clean);
+        endTime = System.nanoTime();
+        long durationReversal = endTime - startTime;
+
+ 
+        System.out.println("\n--- Performance Results (in Nanoseconds) ---");
+        System.out.printf("%-20s : %d ns\n", "Two-Pointer", durationTwoPointer);
+        System.out.printf("%-20s : %d ns\n", "Stack (LIFO)", durationStack);
+        System.out.printf("%-20s : %d ns\n", "String Reversal", durationReversal);
+
+        System.out.println("\nNote: Two-Pointer is usually fastest as it avoids extra memory allocation.");
+
+        scanner.close();
     }
-
-    public boolean check(String text) {
-        if (strategy == null) throw new IllegalStateException("Strategy not set!");
-        return strategy.isValid(text);
-    }
-}
-
-public class PalindromeCheckerApp {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        PalindromeContext context = new PalindromeContext();
-
-        System.out.println("=== UC12: Strategy Pattern Palindrome Checker ===");
-        System.out.print("Enter text: ");
-        String text = scanner.nextLine();
-
-        System.out.println("Choose Algorithm: 1 for Stack, 2 for Deque");
-        int choice = scanner.nextInt();
 
  
         if (choice == 1) {
@@ -65,14 +65,26 @@ public class PalindromeCheckerApp {
         } else {
             context.setStrategy(new DequeStrategy());
             System.out.println("Using: Deque Strategy");
+    public static boolean checkTwoPointer(String s) {
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i++) != s.charAt(j--)) return false;
         }
+        return true;
+    }
 
-        if (context.check(text)) {
-            System.out.println("Result: Success! It is a palindrome.");
-        } else {
-            System.out.println("Result: Failed. Not a palindrome.");
+ 
+    public static boolean checkStack(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) stack.push(c);
+        for (char c : s.toCharArray()) {
+            if (c != stack.pop()) return false;
         }
+        return true;
+    }
 
-        scanner.close();
+    public static boolean checkReversal(String s) {
+        String reversed = new StringBuilder(s).reverse().toString();
+        return s.equals(reversed);
     }
 }
