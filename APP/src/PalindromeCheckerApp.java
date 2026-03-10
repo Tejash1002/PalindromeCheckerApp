@@ -1,5 +1,11 @@
 import java.util.*;
 
+
+class PalindromeService {
+
+    public boolean checkPalindrome(String input) {
+       
+        String cleanString = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 interface PalindromeStrategy {
     boolean isValid(String input);
 }
@@ -15,6 +21,17 @@ public class  PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+       
+        for (char c : cleanString.toCharArray()) {
+            stack.push(c);
+        }
+
+       
+        for (char c : cleanString.toCharArray()) {
+            if (c != stack.pop()) {
+                return false;
+            }
+        }
         System.out.println("=== UC13: Performance Comparison (Algorithm Benchmark) ===");
         System.out.print("Enter a long string to benchmark: ");
         String input = scanner.nextLine();
@@ -42,6 +59,8 @@ class PalindromeContext {
         long durationStack = endTime - startTime;
  
 
+       
+        PalindromeService service = new PalindromeService();
         startTime = System.nanoTime();
         boolean res3 = checkReversal(clean);
         endTime = System.nanoTime();
@@ -53,6 +72,8 @@ class PalindromeContext {
         System.out.printf("%-20s : %d ns\n", "Stack (LIFO)", durationStack);
         System.out.printf("%-20s : %d ns\n", "String Reversal", durationReversal);
 
+      
+        boolean result = service.checkPalindrome(userInput);
         System.out.println("\nNote: Two-Pointer is usually fastest as it avoids extra memory allocation.");
 
         scanner.close();
