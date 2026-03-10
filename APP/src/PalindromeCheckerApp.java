@@ -8,14 +8,13 @@ public class  PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String originalInput = scanner.nextLine();
 
-        // Step 1: Normalize the string
-        // We use regex [^a-zA-Z0-9] to remove everything except alphanumeric characters
+    
         String normalizedString = originalInput.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        // Step 2: Apply Palindrome Logic (Two-Pointer Technique)
+      
         boolean isPalindrome = checkPalindrome(normalizedString);
 
-        // Output results
+
         System.out.println("\nNormalized String: " + normalizedString);
         if (isPalindrome) {
             System.out.println("Result: Success! \"" + originalInput + "\" is a palindrome.");
@@ -26,9 +25,7 @@ public class  PalindromeCheckerApp {
         scanner.close();
     }
 
-    /**
-     * Logic to check if a string reads the same forwards and backwards
-     */
+
     public static boolean checkPalindrome(String str) {
         int left = 0;
         int right = str.length() - 1;
