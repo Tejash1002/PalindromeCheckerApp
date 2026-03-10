@@ -7,6 +7,10 @@ public class  PalindromeCheckerApp {
         System.out.println("=== UC13: Performance Comparison (Algorithm Benchmark) ===");
         System.out.print("Enter a long string to benchmark: ");
         String input = scanner.nextLine();
+
+ 
+        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
  
         String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
  
@@ -15,10 +19,12 @@ public class  PalindromeCheckerApp {
         long endTime = System.nanoTime();
         long durationTwoPointer = endTime - startTime;
 
+ 
         startTime = System.nanoTime();
         boolean res2 = checkStack(clean);
         endTime = System.nanoTime();
         long durationStack = endTime - startTime;
+ 
 
         startTime = System.nanoTime();
         boolean res3 = checkReversal(clean);
@@ -36,6 +42,7 @@ public class  PalindromeCheckerApp {
         scanner.close();
     }
 
+ 
     public static boolean checkTwoPointer(String s) {
         int i = 0, j = s.length() - 1;
         while (i < j) {
@@ -44,6 +51,7 @@ public class  PalindromeCheckerApp {
         return true;
     }
 
+ 
     public static boolean checkStack(String s) {
         Stack<Character> stack = new Stack<>();
         for (char c : s.toCharArray()) stack.push(c);
